@@ -1,5 +1,3 @@
-require('dotenv').config()
-
 exports.config = {
     
     //
@@ -12,7 +10,7 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        './src/features/*.feature'
+        './src/specs/**/*.js'
     ],
     // Patterns to exclude.
     exclude: [
@@ -34,7 +32,7 @@ exports.config = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 1,
+    maxInstances: 10,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -44,9 +42,9 @@ exports.config = {
         // maxInstances can get overwritten per capability. So if you have an in-house Selenium
         // grid with only 5 firefox instances available you can make sure that not more than
         // 5 instances get started at a time.
-        maxInstances: 1,
+        maxInstances: 5,
         //
-        browserName: 'chrome'
+        browserName: 'firefox'
     }],
     //
     // ===================
@@ -79,7 +77,7 @@ exports.config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: process.env.HOST,
+    baseUrl: 'http://localhost',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
@@ -113,11 +111,7 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: [
-        // 'selenium-standalone',
-        // 'phantomjs',
-        'chromedriver'
-    ],
+    services: ['selenium-standalone','phantomjs','chromedriver'],
     //
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
@@ -125,34 +119,19 @@ exports.config = {
     //
     // Make sure you have the wdio adapter package for the specific framework installed
     // before running any tests.
-    framework: 'cucumber',
+    framework: 'mocha',
     //
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: http://webdriver.io/guide/reporters/dot.html
-    reporters: [
-        // 'dot',
-        'concise'
-    ],
-    //
-    // If you are using Cucumber you need to specify the location of your step definitions.
-    cucumberOpts: {
-        require: ['./src/steps/'],        // <string[]> (file/dir) require files before executing features
-        backtrace: false,   // <boolean> show full backtrace for errors
-        compiler: [],       // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)
-        dryRun: false,      // <boolean> invoke formatters without executing steps
-        failFast: false,    // <boolean> abort the run on first failure
-        format: ['pretty'], // <string[]> (type[:path]) specify the output format, optionally supply PATH to redirect formatter output (repeatable)
-        colors: true,       // <boolean> disable colors in formatter output
-        snippets: true,     // <boolean> hide step definition snippets for pending steps
-        source: true,       // <boolean> hide source uris
-        profile: [],        // <string[]> (name) specify the profile to use
-        strict: false,      // <boolean> fail if there are any undefined or pending steps
-        tags: [],           // <string[]> (expression) only execute the features or scenarios with tags matching the expression
-        timeout: 20000,     // <number> timeout for step definitions
-        ignoreUndefinedDefinitions: false, // <boolean> Enable this config to treat undefined definitions as warnings.
-    },
+    reporters: ['dot','junit','concise'],
     
+    //
+    // Options to be passed to Mocha.
+    // See the full list at http://mochajs.org/
+    mochaOpts: {
+        ui: 'bdd'
+    },
     //
     // =====
     // Hooks
@@ -194,40 +173,40 @@ exports.config = {
     // },
     
     /**
-     * Runs before a Cucumber feature
-     * @param {Object} feature feature details
+     * Hook that gets executed before the suite starts
+     * @param {Object} suite suite details
      */
-    // beforeFeature: function (feature) {
+    // beforeSuite: function (suite) {
     // },
     /**
-     * Runs before a Cucumber scenario
-     * @param {Object} scenario scenario details
+     * Function to be executed before a test (in Mocha/Jasmine) or a step (in Cucumber) starts.
+     * @param {Object} test test details
      */
-    // beforeScenario: function (scenario) {
+    // beforeTest: function (test) {
     // },
     /**
-     * Runs before a Cucumber step
-     * @param {Object} step step details
+     * Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling
+     * beforeEach in Mocha)
      */
-    // beforeStep: function (step) {
+    // beforeHook: function () {
     // },
     /**
-     * Runs after a Cucumber step
-     * @param {Object} stepResult step result
+     * Hook that gets executed _after_ a hook within the suite ends (e.g. runs after calling
+     * afterEach in Mocha)
      */
-    // afterStep: function (stepResult) {
+    // afterHook: function () {
     // },
     /**
-     * Runs after a Cucumber scenario
-     * @param {Object} scenario scenario details
+     * Function to be executed after a test (in Mocha/Jasmine) or a step (in Cucumber) ends.
+     * @param {Object} test test details
      */
-    // afterScenario: function (scenario) {
+    // afterTest: function (test) {
     // },
     /**
-     * Runs after a Cucumber feature
-     * @param {Object} feature feature details
+     * Hook that gets executed after the suite has ended
+     * @param {Object} suite suite details
      */
-    // afterFeature: function (feature) {
+    // afterSuite: function (suite) {
     // },
     
     /**
