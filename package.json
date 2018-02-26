@@ -4,7 +4,7 @@
   "description": "ss acceptance test",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/wdio --spec ./src/specs/ss/register.js | tap-notify | tap-diff"
+    "test": "./node_modules/.bin/wdio --spec ./src/specs/ss/forgotPassword.js | tap-notify | tap-diff"
   },
   "repository": {
     "type": "git",
