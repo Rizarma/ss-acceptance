@@ -10,7 +10,7 @@ exports.config = {
         {
             maxInstances: 1,
             browserName: 'chrome',
-            browser_version: '2.35.0',
+            version: '2.35.0',
             platform: 'Ubuntu 16.04',
             chromeOptions: {
                 args: ['--start-maximized']
