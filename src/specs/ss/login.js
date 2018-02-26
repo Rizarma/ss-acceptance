@@ -4,11 +4,11 @@ describe('Login member', function () {
     })
 
     it('I fill email field', function () {
-        browser.setValue('//*[@id="form-email"]', 'lisdiana22@indosystem.com')
+        browser.setValue('//*[@id="form-email"]', '')
     })
 
     it('I fill password field', function () {
-        browser.setValue('//*[@id="form-password"]', '123123')
+        browser.setValue('//*[@id="form-password"]', '')
     })
 
     it('I click button "Masuk"', function () {

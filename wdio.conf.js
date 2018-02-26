@@ -80,8 +80,14 @@ exports.config = {
         require('dotenv').config()
         const chai = require('chai')
 
+        global.assert = chai.assert
         global.expect = chai.expect
-        chai.should()
+        global.should = chai.should()
+
+        /**
+         * Custom variables
+         */
+        global.timestamp = Math.floor(Date.now() / 1000)
     },
     
     /**
